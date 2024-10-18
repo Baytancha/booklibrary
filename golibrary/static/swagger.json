@@ -1,0 +1,702 @@
+ {
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+      "description": "golibrary ",
+      "title": "Swagger Golibrary",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "apiteam@swagger.io"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.7"
+    },
+    "host": "golibrary.swagger.io",
+    "basePath": "/v2",
+    "paths": {
+      "/books/book": {
+        "post": {
+          "description": "create a book from json",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "book"
+          ],
+          "summary": "Creates a new book given an author id",
+          "operationId": "createBook",
+          "parameters": [
+            {
+              "description": "Created book object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/books/author": {
+        "post": {
+          "description": "create a author from json",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "author"
+          ],
+          "summary": "Add a new author to the database",
+          "operationId": "createAuthor",
+          "parameters": [
+            {
+              "description": "Created author object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Author"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/books/rent/{bookId}": {
+        "patch": {
+
+          "description": "Rent a single book",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "book"
+          ],
+          "summary": "Rent a book by ID",
+          "operationId": "rentBook",
+          "parameters": [
+            {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of book to rent",
+              "name": "bookId",
+              "in": "path",
+              "required": true
+            },
+            {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of user",
+              "name": "userId",
+              "in": "query",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+              }
+            }
+          }
+        },
+        "/books/return/{bookId}": {
+          "patch": {
+  
+            "description": "Return a book",
+            "produces": [
+              "application/json",
+              "application/xml"
+            ],
+            "tags": [
+              "book"
+            ],
+            "summary": "Return a book by ID",
+            "operationId": "returnBook",
+            "parameters": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "ID of book to return",
+                "name": "bookId",
+                "in": "path",
+                "required": true
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "ID of user that borrowed the book",
+                "name": "userId",
+                "in": "query",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+                }
+              }
+            }
+          },
+          "/books/listUsers": {
+          "get": {
+  
+            "description": "list users with rented book info",
+            "produces": [
+              "application/json",
+              "application/xml"
+            ],
+            "tags": [
+              "users"
+            ],
+            "summary": "list users",
+            "operationId": "listUsers",
+            "parameters": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page",
+                "name": "page",
+                "in": "query",
+                "required": true
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page_size",
+                "name": "page_size",
+                "in": "query",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+                }
+              }
+            }
+          },
+          "/books/listBooks": {
+          "get": {
+  
+            "description": "list all books with available info",
+            "produces": [
+              "application/json",
+              "application/xml"
+            ],
+            "tags": [
+              "books"
+            ],
+            "summary": "list books",
+            "operationId": "listBooks",
+            "parameters": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page",
+                "name": "page",
+                "in": "query",
+                "required": true
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page_size",
+                "name": "page_size",
+                "in": "query",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+                }
+              }
+            }
+          },
+          "/books/listAuthors": {
+          "get": {
+  
+            "description": "list all authors with their books",
+            "produces": [
+              "application/json",
+              "application/xml"
+            ],
+            "tags": [
+              "author"
+            ],
+            "summary": "list authors",
+            "operationId": "listAuthors",
+            "parameters": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page",
+                "name": "page",
+                "in": "query",
+                "required": true
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "page_size",
+                "name": "page_size",
+                "in": "query",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+                }
+              }
+            }
+          },
+          "/books/rate": {
+          "patch": {
+  
+            "description": "Rate all authors based on how many books have been rented",
+            "produces": [
+              "application/json",
+              "application/xml"
+            ],
+            "tags": [
+              "authors"
+            ],
+            "summary": "Author raing",
+            "operationId": "rate",
+            "responses": {
+              "200": {
+                "description": "successful operation"
+                }
+              }
+            }
+          },
+      "/user": {
+        "post": {
+          "description": "This can only be done by the logged in user.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Create user",
+          "operationId": "createUser",
+          "parameters": [
+            {
+              "description": "Created user object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/createWithArray": {
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Creates list of users with given input array",
+          "operationId": "createUsersWithArrayInput",
+          "parameters": [
+            {
+              "description": "List of user object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/createWithList": {
+        "post": {
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Creates list of users with given input array",
+          "operationId": "createUsersWithListInput",
+          "parameters": [
+            {
+              "description": "List of user object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/login": {
+        "get": {
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Logs user into the system",
+          "operationId": "loginUser",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "The user name for login",
+              "name": "username",
+              "in": "query",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "The password for login in clear text",
+              "name": "password",
+              "in": "query",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "type": "string"
+              },
+              "headers": {
+                "X-Expires-After": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "date in UTC when token expires"
+                },
+                "X-Rate-Limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "calls per hour allowed by the user"
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid username/password supplied"
+            }
+          }
+        }
+      },
+      "/user/logout": {
+        "get": {
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Logs out current logged in user session",
+          "operationId": "logoutUser",
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/user/{username}": {
+        "get": {
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Get user by user name",
+          "operationId": "getUserByName",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "The name that needs to be fetched. Use user1 for testing. ",
+              "name": "username",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "put": {
+          "description": "This can only be done by the logged in user.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Updated user",
+          "operationId": "updateUser",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "name that need to be updated",
+              "name": "username",
+              "in": "path",
+              "required": true
+            },
+            {
+              "description": "Updated user object",
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ]
+        },
+        "delete": {
+          "description": "This can only be done by the logged in user.",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "tags": [
+            "user"
+          ],
+          "summary": "Delete user",
+          "operationId": "deleteUser",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "The name that needs to be deleted",
+              "name": "username",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Invalid username supplied"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      }
+    },
+     "definitions": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "available": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "year": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+           "$ref": "#/definitions/Author"
+          }
+        },
+        "xml": {
+          "name": "Book"
+        }
+      },
+      "Author": {
+        "type": "object",
+        "properties": {
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Book",
+              "xml": {
+                "name": "book"
+              }
+            }
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "example": "doggie"
+          },
+          "times_ordered": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "xml": {
+          "name": "Author"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "rented_books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Book",
+              "xml": {
+                "name": "book"
+              }
+            }
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "password": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      }
+    },
+    "securityDefinitions": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      },
+      "golibrary_auth": {
+        "type": "oauth2",
+        "flow": "implicit",
+        "authorizationUrl": "https://golibrary.swagger.io/oauth/authorize"
+      }
+    },
+    "tags": [
+      {
+        "description": "book library",
+        "name": "books",
+        "externalDocs": {
+          "description": "Find out more",
+          "url": "http://swagger.io"
+        }
+      },
+      {
+        "description": "Operations about user",
+        "name": "user",
+        "externalDocs": {
+          "description": "Find out more about our store",
+          "url": "http://swagger.io"
+        }
+      }
+    ],
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+
+  }
+  
